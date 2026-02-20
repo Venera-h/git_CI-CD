@@ -14,7 +14,7 @@ class Product(BaseModel):
 app = FastAPI(title="E-Shop-СI-CD")
 
 with open(Path(__file__).parent / "shop.json", "r", encoding="utf-8") as f:
-    PRODUCTS. = json.load(f)
+    PRODUCTS = json.load(f)
 
 @app.get("/products")
 async def get_products():

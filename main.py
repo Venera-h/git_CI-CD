@@ -18,7 +18,7 @@ with open(Path(__file__).parent / "shop.json", "r", encoding="utf-8") as f:
 
 @app.get("/products")
 async def get_products():
-    return PRODUCTS7
+    return PRODUCTS
 
 @app.get("/product/{pid}")
 async def get_product(pid: int):

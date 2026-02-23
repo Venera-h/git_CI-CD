@@ -35,7 +35,7 @@ def test_cart_add():
     CART.clear()
     response = client.post("/cart/add?pid=0&qty=2")
     assert response.status_code == 200
-    assert response.json()["ok"] == True
+    assert response.json()["ok"]
 
 def test_cart_add_invalid():
     """Проверка добавления несуществующего товара"""
@@ -46,7 +46,7 @@ def test_clear_cart():
     """Проверка очистки корзины"""
     response = client.delete("/cart")
     assert response.status_code == 200
-    assert response.json()["ok"] == True
+    assert response.json()["ok"]
 
 def test_checkout():
     """Проверка оформления заказа"""

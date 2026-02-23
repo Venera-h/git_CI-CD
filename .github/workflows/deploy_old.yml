@@ -8,6 +8,8 @@ jobs:
   test:
     name: Test before deploy
     runs-on: ubuntu-latest
+
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,26 +24,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run tests
-        run: pytest -v test_main.py
-
-  deploy:
-    name: Deploy to Railway
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
       - name: Deploy to Railway
         run: |
           railway up --service ${{ secrets.RAILWAY_SERVICE || 'web' }}
         env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}       
+
+

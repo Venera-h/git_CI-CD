@@ -31,3 +31,16 @@ async def get_products():
     finally:
         conn.close()
 
+@app.get("/health")
+async def health():
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("SELECT COUNT(*) AS count FROM video_cards")
+            count = cur.fetchone()["count"]
+        return {"status": "ok", "products": len(PRODUCTS)}
+    finally:
+
+        conn.close()
+
+

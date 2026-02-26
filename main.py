@@ -26,7 +26,7 @@ async def get_products():
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
-            cur.execute("SELECT id, name, price, description, created_at FROM video_cards ORDER BY id")
+            cur.execute("SELECT * FROM get_all_products()")
             return [{**dict(r), "price": float(r["price"])} for r in cur.fetchall()]
     finally:
         conn.close()
@@ -36,11 +36,10 @@ async def health():
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
-            cur.execute("SELECT COUNT(*) AS count FROM video_cards")
-            count = cur.fetchone()["count"]
-        return {"status": "ok", "products": len(PRODUCTS)}
+            cur.execute("SELECT get_products_count()")
+            count = cur.fetchone()["get_products_count"]
+        return {"status": "ok", "products": count}
     finally:
-
         conn.close()
 
 

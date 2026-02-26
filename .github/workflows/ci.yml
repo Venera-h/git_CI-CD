@@ -21,7 +21,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
         ports:
-          - 5432:5433
+          - 5432:5432
         options: >-
           --health-cmd "pg_isready -U app -d postgres"
           --health-interval 5s
@@ -30,7 +30,7 @@ jobs:
 
     env:
       DB_HOST: 127.0.0.1
-      DB_PORT: 5433
+      DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: postgres
       DB_NAME: postgres
@@ -50,8 +50,7 @@ jobs:
       - run: python -c "import main; print('imported OK')"
       - name: Init PostgreSQL
         run: |
-          docker run --rm --network host -e PGPASSWORD=postgres -v $PWD/scripts:/scripts postgres:18 \
-             psql -h 127.0.0.1 -U postgres -d postgres -f /scripts/init_db.sql
+          PGPASSWORD=postgres psql -h 127.0.0.1 -U postgres -d postgres -f init_db.sql
 
       # - name: Run tests
       #   run: | 
